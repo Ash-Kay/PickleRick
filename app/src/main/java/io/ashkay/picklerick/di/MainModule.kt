@@ -5,7 +5,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.ashkay.picklerick.BuildConfig
+import io.ashkay.picklerick.data.RepositoryImpl
 import io.ashkay.picklerick.data.api.RickAndMortyApi
+import io.ashkay.picklerick.domain.Repository
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -33,9 +35,13 @@ object MainModule {
         else
             logging.level = HttpLoggingInterceptor.Level.NONE
 
-
         return OkHttpClient.Builder()
             .addInterceptor(logging)
             .build()
+    }
+
+    @Provides
+    fun providesRepository(apiService: RickAndMortyApi): Repository {
+        return RepositoryImpl(apiService)
     }
 }

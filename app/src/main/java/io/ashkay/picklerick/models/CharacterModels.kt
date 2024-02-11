@@ -5,7 +5,7 @@ data class CharacterModelResponse(
     @SerializedName("info")
     val info: Info,
     @SerializedName("results")
-    val results: List<Result>
+    val characters: List<Character>
 )
 
 data class Info(
@@ -19,7 +19,7 @@ data class Info(
     val prev: Any
 )
 
-data class Result(
+data class Character(
     @SerializedName("created")
     val created: String,
     @SerializedName("gender")
