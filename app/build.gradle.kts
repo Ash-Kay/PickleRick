@@ -70,5 +70,10 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.50")
     kapt("com.google.dagger:hilt-android-compiler:2.50")
 
+    //Gson
     implementation("com.google.code.gson:gson:2.10.1")
+
+    //Glide
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+
 }
