@@ -17,11 +17,17 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        android.buildFeatures.buildConfig = true
     }
 
     buildTypes {
+        debug {
+            isMinifyEnabled = false
+            buildConfigField("String", "BASE_URL", "\"https://rickandmortyapi.com/api\"")
+        }
         release {
             isMinifyEnabled = false
+            buildConfigField("String", "BASE_URL", "\"https://rickandmortyapi.com/api\"")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -51,11 +57,13 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     //Network
-    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
 
     //Hilt
-    implementation("com.google.dagger:hilt-android:2.44")
-    kapt("com.google.dagger:hilt-android-compiler:2.44")
+    implementation("com.google.dagger:hilt-android:2.50")
+    kapt("com.google.dagger:hilt-android-compiler:2.50")
 
     implementation("com.google.code.gson:gson:2.10.1")
 }
