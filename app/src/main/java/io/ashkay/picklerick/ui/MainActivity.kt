@@ -8,6 +8,7 @@ import androidx.lifecycle.Lifecycle.State.STARTED
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import io.ashkay.picklerick.databinding.ActivityMainBinding
 import io.ashkay.picklerick.ui.MainUiState.Error
@@ -36,6 +37,23 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.adapter = characterAdapter
         binding.recyclerView.layoutManager =
             LinearLayoutManager(this@MainActivity)
+
+        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val state = viewModel.uiState.value
+
+                if (state is Success) {
+                    val last =
+                        (binding.recyclerView.layoutManager as LinearLayoutManager?)?.findLastVisibleItemPosition()
+
+                    if (last == state.data.size - 1) {
+                        println()
+                        viewModel.loadMore()
+                    }
+                }
+            }
+        })
     }
 
     private fun observeState() {
@@ -56,7 +74,8 @@ class MainActivity : AppCompatActivity() {
                         is Success -> {
                             binding.status.visibility = View.GONE
                             binding.recyclerView.visibility = View.VISIBLE
-                            characterAdapter.submitList(it.data)
+                            //Note: toList needed as it list reference same, items are not updated :(
+                            characterAdapter.submitList(it.data.toList())
                         }
                     }
                 }
