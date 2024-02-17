@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor(private val apiService: RickAndMortyApi) : Repository {
 
-    override suspend fun getCharacters(page: Int): CharacterModelResponse {
-        return apiService.getCharacters(page)
+    override suspend fun getCharacters(page: Int, name: String?): CharacterModelResponse {
+        return apiService.getCharacters(page, name)
     }
 }

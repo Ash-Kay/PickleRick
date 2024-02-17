@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Lifecycle.State.STARTED
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -30,6 +31,9 @@ class MainActivity : AppCompatActivity() {
 
         setupRecyclerView()
         observeState()
+        binding.search.addTextChangedListener {
+            viewModel.search(it.toString())
+        }
     }
 
     private fun setupRecyclerView() {
