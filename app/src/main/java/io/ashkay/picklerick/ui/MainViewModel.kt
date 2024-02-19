@@ -62,7 +62,7 @@ class MainViewModel @Inject constructor(private val repository: Repository) : Vi
     }
 
 
-    private fun loadCharacters(page: Int, searchQuery: String? = null) {
+    fun loadCharacters(page: Int, searchQuery: String? = null) {
         _uiState.value = MainUiState.Loading
         viewModelScope.launch(Dispatchers.IO) {
             try {
