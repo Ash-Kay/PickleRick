@@ -81,4 +81,11 @@ dependencies {
     //Glide
     implementation("com.github.bumptech.glide:glide:4.16.0")
 
+    val roomVersion = "2.6.1"
+    implementation("androidx.room:room-runtime:$roomVersion")
+    annotationProcessor("androidx.room:room-compiler:$roomVersion")
+    kapt("androidx.room:room-compiler:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
+    testImplementation("androidx.room:room-testing:$roomVersion")
+
 }
